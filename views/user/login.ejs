@@ -45,6 +45,26 @@
   </form>
 
   <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+  <script>
+        $(function(){      
+        $('#form').on('submit',function(e){
+          //获取表单数据
+          var data = $('#form').serializeArray();
+          $.ajax({
+            url:"/login",
+            type:'post',
+            data:data,
+            success:function(res){
+              location.href='/'
+            },
+            error:function(res){
+              alert(res['responseJSON'].msg);
+            }
+          })
+          e.preventDefault();
+        })
+      })
+  </script>
 </body>
 
 </html>

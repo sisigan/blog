@@ -55,10 +55,11 @@
             type:'post',
             data:data,
             success:function(res){
-              console.log(res);
+              alert(res.msg);
+              location.href='/login'
             },
             error:function(res){
-              console.log(res);
+              alert(res['responseJSON'].msg);
             }
           })
           e.preventDefault();
