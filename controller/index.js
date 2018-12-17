@@ -4,7 +4,10 @@ const router =require('../router.js');
 //设计路由请求路径对应的接口暴露出去
 module.exports={
     getIndexHandler(req,res){
-        res.render('./index'),{}
+        res.render('./index.ejs',{
+            isLogin:req.session.isLogin,
+            userInfo:req.session.userInfo
+        })
     }
 }
 

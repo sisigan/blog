@@ -3,6 +3,7 @@ const express =require('express');
 const bodyparser=require('body-parser');
 const fs=require('fs');
 const path=require('path');
+const session = require('express-session');
 //调用express()创建实例对象
 const app=express();
 //注册中间件
@@ -12,6 +13,14 @@ app.use(bodyparser.urlencoded({extended:false}))
 app.set('view engine','ejs');
 
 app.use('/node_modules',express.static('./node_modules'))
+
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    //设置过期时间,一个月
+    cookie:{maxAge:30*24*60*60*1000}
+  }))
 
 //使用循环的方式让routes文件下的文件,进行路由的自动注册
 //files为一个包含 指定目录下所有文件名称的 数组
