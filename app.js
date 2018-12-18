@@ -3,11 +3,20 @@ const express =require('express');
 const bodyparser=require('body-parser');
 const fs=require('fs');
 const path=require('path');
+const session=require('express-session');
 //调用express()创建实例对象
 const app=express();
 //注册中间件
 
 app.use(bodyparser.urlencoded({extended:false}))
+
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    //设置过期时间
+    cookie: { maxAge: 30*24*60*60*1000 }
+  }))
 //设置默认模板,设置路径
 app.set('view engine','ejs');
 

@@ -10,5 +10,7 @@ router.post('/login',ctrl.postLoginHandler);
 
 router.post('/register',ctrl.postRegisterHandler);
 
+router.get('/logout',ctrl.getLogoutHandler)
+
 //将路由对象暴露出去
 module.exports=router;

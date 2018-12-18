@@ -25,7 +25,7 @@
 </head>
 
 <body>
-  <form id="form" action="/login" method="post">
+  <form id="form"  method="post">
     <h1>登录页面</h1>
     <div class="form-group">
       <input type="text" name="username" id="username" class="form-control input-lg" placeholder="用户名" required value="ls">
@@ -58,7 +58,7 @@
               location.href='/'
             },
             error:function(res){
-              alert(res['responseJSON'].msg);
+              alert(res.responseJSON.msg)
             }
           })
           e.preventDefault();

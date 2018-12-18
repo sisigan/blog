@@ -11,6 +11,7 @@ module.exports={
     getRegisterHandler(req,res){
         res.render('./user/register')
     },
+    //注册事件
     postRegisterHandler(req,res){
         const userinfo =req.body;
         //表单验证
@@ -34,16 +35,29 @@ module.exports={
     
         })
     },
+    //登录事件
     postLoginHandler(req,res){
         const userinfo =req.body;
     
         const sql3="select * from blog where username =? and password =?";
         conn.query(sql3,[userinfo.username,userinfo.password],(err,results)=>{
             //错误或者结果的长度为零(没有查询到数据)
-            if(err || results.length==0 ) return res.status(500).send({ status: 500, msg: '用户名或密码错误,请重试!' })
+            if(err || results.length==0 ) return res.status(400).send({ status: 400, msg: '用户名或密码错误,请重试!' })
+            //登陆成功，设置session
+            req.session.isLogin=true;
+            req.session.userInfo=results[0];
+
             res.send({ status: 200, msg: '登录成功' })
             })
+    },
+    //注销事件
+    getLogoutHandler(req,res){
+        req.session.destroy(function(){
+            //重定向到首页
+            res.redirect('/')
+        })
     }
+
 }
 
 
