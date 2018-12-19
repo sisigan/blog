@@ -49,7 +49,7 @@
       $(function(){      
         $('#form').on('submit',function(e){
           //获取表单数据
-          var data = $('#form').serializeArray();
+          let data = $('#form').serializeArray();
           $.ajax({
             url:"/register",
             type:'post',

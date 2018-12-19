@@ -1,22 +1,56 @@
 <%- include('../common/header.ejs') %>
 
- <div class="container">
-     <h1>发表文章页</h1>
-     <hr>
-     <form id="form">
-         <div class="form-group">
-                <label>文章标题:</label>
-                <input type="text" name="title" class="form-control">
-         </div>
-         <div class="form-group">
-                <label>文章内容:</label>
-                <textarea name="content" class="form-control"></textarea>
-         </div>
-         <div class="form-group pull-right">
-              <input type="submit" value="发表文章" class="btn btn-primary">
-         </div>            
-     </form>  
- </div>
+<link rel="stylesheet" href="/node_modules/mditor/dist/css/mditor.min.css">
+<script src="/node_modules/mditor/dist/js/mditor.min.js"></script>
+
+<div class="container">
+    <h1>发表文章页</h1>
+    <hr>
+    <form id="form">
+        <div class="form-group">
+            <label>文章标题:</label>
+            <input type="text" name="title" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>文章内容:</label>
+            <textarea name="content" class="form-control" id="editor"></textarea>
+        </div>
+        <div class="form-group pull-right">
+            <input type="submit" value="发表文章" class="btn btn-primary">
+        </div>
+    </form>
+</div>
+
+<script>
+    $(function () {
+        //初始化编辑器
+        var mditor = Mditor.fromTextarea(document.getElementById('editor'));
+
+        // //获取或设置编辑器的值
+        // mditor.on('ready', function () {
+        //     console.log(mditor.value);
+        //     mditor.value = '** 请输入内容 **';
+        // });
+
+        $("#form").on('submit',function(e){
+            //阻止表单的提交行为
+            e.preventDefault();
+            let data = $('#form').serializeArray();
+            $.ajax({
+                url:'/article/add',
+                type:'post',
+                dataType:"json",
+                data:data,
+                success:function(res){
+                   if(res.status !=200) return alert('文章发表失败!请重试!')
+                   location.href="/article/info/"+res.insertId
+                },
+                error:function(res){
+                    alert(res.responseJSON.msg)
+                }
+            });
+        })
+    })
+</script>
 
 <%- include('../common/footer.ejs') %>
-
