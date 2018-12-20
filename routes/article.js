@@ -8,7 +8,8 @@ router.get('/article/add',ctrl.getArticleAddHandler);
 //发表文章
 router.post('/article/add',ctrl.postArticleAddHandler);
 
-router.get('/article/info',ctrl.getArticleInfoHandler);
+//查看文章详情页
+router.get('/article/info/:id',ctrl.getArticleInfoHandler);
 
 //将路由对象暴露出去
 module.exports=router;

@@ -46,7 +46,11 @@
                    location.href="/article/info/"+res.insertId
                 },
                 error:function(res){
-                    alert(res.responseJSON.msg)
+                    alert(res.responseJSON.msg);
+                    if(res.responseJSON.status === 401){
+                        let newWindow=window.open('about:blank');
+                        newWindow.location = '/login/reauth'
+                    }
                 }
             });
         })
