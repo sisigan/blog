@@ -27,7 +27,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     //设置过期时间,一个月
-    cookie:{maxAge:30*24*60*60*1000}
+    cookie:{maxAge:1000}
   }))
 
 //使用循环的方式让routes文件下的文件,进行路由的自动注册

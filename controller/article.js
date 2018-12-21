@@ -57,5 +57,32 @@ module.exports={
         })
 
     },
+    getArticleEditHandler(req,res){
+        //如果用户未登录,不允许用户查看文章编辑页
+        if(!req.session.isLogin) return res.redirect('/');
+        const sql="select * from blog_articles where id=?"
+        conn.query(sql,req.params.id,(err,results)=>{
+            if (err ||results.length !=1) return res.redirect("/");
+            res.render("./article/edit.ejs",{
+                isLogin:req.session.isLogin,
+                userInfo:req.session.userInfo,
+                articleInfo:results[0]
+            })
+        })      
+    },
+    postArticleEditHandler(req,res){//编辑文章
+        //未登录或者身份已过期
+        if (!req.session.isLogin) return res.status(401).send({ status: 401, msg: '身份信息已过期!请登陆后重试!' })
+        //获取表单信息
+        const articleInfo=req.body;
+        //更改文章修改时间
+        articleInfo.ctime=moment().format('YYYY-MM-DD HH:mm:ss');
+        const sql="update blog_articles set ? where id =?"
+        conn.query(sql,[articleInfo,articleInfo.id],(err,results)=>{
+            if (err ||results.affectedRows !=1) return res.status(500).send({ status: 500, msg: '文章修改失败!请重试!' })
+            
+            res.send({ status: 200, msg: 'ok'})
+        })
+    }
 
 }

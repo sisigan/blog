@@ -5,7 +5,7 @@
         <%= articleInfo.title  %>
         <!-- 当用户登录并且用户登录的id与作者id一致时,显示编辑按钮 -->
         <% if(isLogin && userInfo.id==articleInfo.authorid){%>
-        <a href="#" class="btn btn-info pull-right">编辑</a>
+        <a href="/article/edit/<%= articleInfo.id %>" class="btn btn-info pull-right">编辑</a>
         <% } %>
     </h1>
     <hr>
