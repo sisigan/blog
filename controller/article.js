@@ -35,7 +35,7 @@ module.exports={
     },
     getArticleInfoHandler(req,res){
         //若未登录跳转到首页
-        if(!req.session.isLogin) return res.redirect('/');
+        //if(!req.session.isLogin) return res.redirect('/');
         let Id=req.params.id;
         //根据Id获取文章信息
         let sql="select * from blog_articles where id=?"
