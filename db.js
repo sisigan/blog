@@ -8,7 +8,9 @@ const conn =mysql.createConnection({
     host:'localhost',
     user:'root',
     password:'root',
-    database:'user'
+    database:'user',
+    //开启执行多条sql语句的功能
+    multipleStatements:true
 });
 
 //数据库连接
